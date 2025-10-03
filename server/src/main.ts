@@ -7,13 +7,13 @@ import { ErrorHandler, RequestHandler, ResponseHandler, TimeoutInterceptor } fro
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService<Env, true>);
+  const allowOrigin = configService.get('ALLOWED_ORIGINS', { infer: true });
+  console.log('Allowed Origins:', allowOrigin);
 
   // Enable CORS with additional headers
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'], // Add your frontend URLs
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    origin: allowOrigin,
+    credentials: true
   });
 
   // Register global interceptors and filters
