@@ -13,7 +13,8 @@ async function bootstrap() {
   // Enable CORS with additional headers
   app.enableCors({
     origin: allowOrigin,
-    credentials: true
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   });
 
   // Register global interceptors and filters

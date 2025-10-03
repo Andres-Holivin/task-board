@@ -2,7 +2,6 @@
 
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { AuthProvider } from "./auth-provider";
 import { ThemeProvider } from "./theme-provider";
 
