@@ -95,7 +95,7 @@ export const useAuthStore = create<AuthStore>()(
                         isLoading: false,
                         error: null,
                     });
-                    toast.success('Registered successfully');
+                    toast.success('Registered successfully', { id: 'register' });
                 } catch (error) {
                     const errorMessage = error instanceof Error
                         ? error.message

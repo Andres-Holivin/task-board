@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD } from '@nestjs/core';
 import { validateEnv } from './config/env';
-import { AuthModule } from './auth/auth.module';
-import { TasksModule } from './tasks/tasks.module';
+import { AuthModule } from './api/auth/auth.module';
+import { TasksModule } from './api/tasks/tasks.module';
+import { ApiKeyModule } from './api/api-key/api-key.module';
 import { GlobalAuthGuard } from './auth/guards/global-auth.guard';
 import { AppController } from './app.controller';
 import * as path from 'path';
@@ -18,6 +19,7 @@ import * as path from 'path';
     }),
     AuthModule,
     TasksModule,
+    ApiKeyModule,
   ],
   controllers: [AppController],
   providers: [
