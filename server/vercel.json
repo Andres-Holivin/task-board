@@ -14,8 +14,16 @@
         "GET",
         "POST",
         "PUT",
-        "DELETE"
-      ]
+        "PATCH",
+        "DELETE",
+        "OPTIONS"
+      ],
+      "headers": {
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "https://task-board-andres.vercel.app",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Authorization"
+      }
     }
   ]
 }
