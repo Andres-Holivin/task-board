@@ -105,6 +105,9 @@ class ApiClient {
                             const response = await this.client.post('/auth/refresh', {
                                 refreshToken,
                             });
+                            if (response.status !== 200) {
+                                throw new Error('Failed to refresh token');
+                            }
 
                             const { accessToken, refreshToken: newRefreshToken } = response.data;
 
