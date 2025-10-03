@@ -2,25 +2,58 @@ import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/commo
 import { PrismaClient } from '@prisma/client';
 import { CreateTaskDto, UpdateTaskDto } from './dto';
 import { Task, TaskStatus } from './interfaces';
+import { SupabaseService } from '../config/supabase.service';
+import { EmailService } from '../email/email.service';
+import { User } from '../auth';
 
 @Injectable()
 export class TasksService {
-    private prisma: PrismaClient;
+    private readonly prisma: PrismaClient;
 
-    constructor() {
+    constructor(private readonly emailService: EmailService) {
         this.prisma = new PrismaClient();
     }
 
-    async create(userId: string, createTaskDto: CreateTaskDto): Promise<Task> {
+    async create(user: User, createTaskDto: CreateTaskDto): Promise<Task> {
         const task = await this.prisma.task.create({
             data: {
                 ...createTaskDto,
-                userId,
+                userId: user.id,
                 status: createTaskDto.status || TaskStatus.TODO,
             },
         });
 
-        return task as Task;
+        const taskResult = task as Task;
+
+        // Kirim email notifikasi secara asynchronous (tidak block)
+        await this.sendTaskCreatedEmail(user, taskResult);
+
+        return taskResult;
+    }
+
+    /**
+     * Helper method untuk kirim email notifikasi task created
+     */
+    private async sendTaskCreatedEmail(user: User, task: Task): Promise<void> {
+        try {
+            const email = user.email;
+            if (!email) {
+                console.error('Failed to get user email');
+                return;
+            }
+            // Kirim email
+            await this.emailService.sendEmail({
+                emailType: 'TASK_CREATED',
+                to: email,
+                variables: {
+                    taskTitle: task.title,
+                    taskDescription: task.description || 'No description provided',
+                },
+            });
+        } catch (error) {
+            console.error('Error in sendTaskCreatedEmail:', error);
+            // Tidak throw error agar tidak mengganggu flow pembuatan task
+        }
     }
 
     async findAll(userId: string): Promise<Task[]> {
@@ -49,6 +82,7 @@ export class TasksService {
     }
 
     async update(id: string, userId: string, updateTaskDto: UpdateTaskDto): Promise<Task> {
+        console.log('UpdateTaskDto:', updateTaskDto);
         // Verify ownership
         await this.findOne(id, userId);
 

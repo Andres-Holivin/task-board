@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { useTasksStore } from '@/hooks/use-tasks';
+import { useTaksActions } from '@/hooks/use-tasks';
 import { TaskStatus } from '@/types/task';
 import { toast } from 'sonner';
 
@@ -49,7 +49,7 @@ interface AddTaskDialogProps {
 
 export function AddTaskDialog({ open, onOpenChange }: AddTaskDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const createTask = useTasksStore((state) => state.createTask);
+  const { createTask } = useTaksActions();
 
   const form = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),

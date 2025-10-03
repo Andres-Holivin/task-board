@@ -5,11 +5,14 @@ import { NavMenu } from "./nav-menu";
 import { ModeToggle } from "../ui/mode-toggle";
 import { useAuthActions } from "@/hooks/use-auth";
 import { SheetTrigger, SheetContent, SheetTitle, Sheet, SheetFooter } from "../ui/sheet";
-import { Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export const Navbar = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated,user } = useAuthActions();
+  const { isAuthenticated, user } = useAuthActions();
   return (
     <div className="h-screen flex flex-col">
       <div className="p-4">
@@ -22,12 +25,9 @@ export const Navbar = ({ children }: { children: React.ReactNode }) => {
 
             <div className="flex items-center gap-3">
               <ModeToggle />
-              {}
+              { }
               <div className="hidden md:flex items-center gap-3">
-                <Link href="/auth/login" className="rounded-full border px-4 py-2 text-sm font-medium">
-                  Sign In
-                </Link>
-                <Link href="/auth/register" className="rounded-full border bg-foreground text-background px-4 py-2 text-sm font-medium">Get Started</Link>
+                <UserAvatar />
               </div>
 
               {/* Mobile Menu */}
@@ -42,8 +42,7 @@ export const Navbar = ({ children }: { children: React.ReactNode }) => {
                     <SheetTitle><Logo /></SheetTitle>
                     {isAuthenticated && <NavMenu orientation="vertical" className="mt-6 [&>div]:h-full" />}
                     <SheetFooter>
-                      <Button variant="outline" className=" rounded-full">Sign In</Button>
-                      <Button className="rounded-full">Get Started</Button>
+                      <UserAvatar />
                     </SheetFooter>
                   </SheetContent>
                 </Sheet>
@@ -58,3 +57,38 @@ export const Navbar = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
+
+function UserAvatar() {
+  const { isAuthenticated, user, logout, isLoading } = useAuthActions();
+  if (!isAuthenticated) {
+    return (
+      <>
+        <Link href="/auth/login" className="rounded-full border px-4 py-2 text-sm font-medium">
+          Sign In
+        </Link>
+        <Link href="/auth/register" className="rounded-full border bg-foreground text-background px-4 py-2 text-sm font-medium">Get Started</Link>
+      </>
+    )
+  }
+  return (
+    <div className="flex items-center space-x-3">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <div className="flex items-center space-x-2 cursor-pointer border-2 px-3 py-1 rounded-full ">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>{user?.fullName[0]}</AvatarFallback>
+            </Avatar>
+            <span className="hidden md:inline-block">{user?.fullName.split(" ")[0].toLocaleUpperCase()}</span>
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent  >
+          <DropdownMenuGroup>
+            <Button className="w-full" variant={"destructive"} onClick={logout} disabled={isLoading}><LogOut /> Logout</Button>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+
+  )
+}

@@ -4,6 +4,7 @@ import { authService } from '@/services/auth';
 import { useEffect, useMemo } from 'react';
 import { redirect } from 'next/navigation';
 import { LoginRequest, RegisterRequest, User, AuthState } from '@/types/auth';
+import { toast } from 'sonner';
 
 interface AuthActions {
     // Auth actions
@@ -46,6 +47,7 @@ export const useAuthStore = create<AuthStore>()(
 
             // Auth actions
             login: async (credentials: LoginRequest) => {
+                toast.loading('Logging in...', { id: 'login' });
                 try {
                     set({ isLoading: true, error: null });
 
@@ -59,6 +61,7 @@ export const useAuthStore = create<AuthStore>()(
                         isLoading: false,
                         error: null,
                     });
+                    toast.success('Logged in successfully', { id: 'login' });
                 } catch (error) {
                     const errorMessage = error instanceof Error
                         ? error.message
@@ -72,13 +75,14 @@ export const useAuthStore = create<AuthStore>()(
                         isLoading: false,
                         error: errorMessage,
                     });
-
+                    toast.error(errorMessage, { id: 'login' });
                     throw error;
                 }
             },
 
             register: async (userData: RegisterRequest) => {
                 try {
+                    toast.loading('Registering...', { id: 'register' });
                     set({ isLoading: true, error: null });
 
                     const response = await authService.register(userData);
@@ -91,6 +95,7 @@ export const useAuthStore = create<AuthStore>()(
                         isLoading: false,
                         error: null,
                     });
+                    toast.success('Registered successfully');
                 } catch (error) {
                     const errorMessage = error instanceof Error
                         ? error.message
@@ -104,6 +109,7 @@ export const useAuthStore = create<AuthStore>()(
                         isLoading: false,
                         error: errorMessage,
                     });
+                    toast.error(errorMessage, { id: 'register' });
 
                     throw error;
                 }
@@ -111,14 +117,12 @@ export const useAuthStore = create<AuthStore>()(
 
             logout: async () => {
                 try {
+                    toast.loading('Logging out...', { id: 'logout' });
                     set({ isLoading: true });
 
                     await authService.logout();
 
-                    set({
-                        ...initialState,
-                        isLoading: false,
-                    });
+                    set({ ...initialState, isLoading: false });
                 } catch (error) {
                     // Even if logout request fails, we should clear the state
                     console.error('Logout error:', error);
@@ -127,10 +131,12 @@ export const useAuthStore = create<AuthStore>()(
                         isLoading: false,
                     });
                 }
+                toast.success('Logged out successfully', { id: 'logout' });
             },
 
             refreshTokenAction: async () => {
                 try {
+                    console.log('Refreshing token...');
                     const { refreshToken } = get();
 
                     if (!refreshToken) {
@@ -149,6 +155,7 @@ export const useAuthStore = create<AuthStore>()(
                         isLoading: false,
                         error: null,
                     });
+                    console.log('Token refreshed successfully');
                 } catch (error) {
                     console.error('Token refresh failed:', error);
 

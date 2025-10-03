@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { useTasksStore } from '@/hooks/use-tasks';
+import { useTaksActions } from '@/hooks/use-tasks';
 import { Task, TaskStatus } from '@/types/task';
 import { toast } from 'sonner';
 
@@ -50,7 +50,7 @@ interface EditTaskDialogProps {
 
 export function EditTaskDialog({ task, open, onOpenChange }: EditTaskDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const updateTask = useTasksStore((state) => state.updateTask);
+  const { updateTask } = useTaksActions();
 
   const form = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),

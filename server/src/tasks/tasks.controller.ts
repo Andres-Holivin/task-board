@@ -43,11 +43,8 @@ export class TasksController {
      */
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    create(
-        @CurrentUser() user: User,
-        @Body(new ZodValidationPipe(createTaskSchema)) createTaskDto: CreateTaskDto,
-    ) {
-        return this.tasksService.create(user.id, createTaskDto);
+    create(@CurrentUser() user: User, @Body(new ZodValidationPipe(createTaskSchema)) createTaskDto: CreateTaskDto) {
+        return this.tasksService.create(user, createTaskDto);
     }
 
     /**

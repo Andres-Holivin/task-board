@@ -29,3 +29,42 @@ model Task {
   @@index([status])
   @@map("tasks")
 }
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+model EmailLog {
+  id        String      @id @default(uuid())
+  to        String
+  subject   String
+  body      String
+  status    EmailStatus @default(PENDING)
+  error     String?
+  sentAt    DateTime?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@index([status])
+  @@map("email_logs")
+}
+model EmailTemplate {
+  id        String    @id @default(uuid())
+  subject   String
+  body      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  emailType EmailType
+  createdBy String
+  updatedBy String
+  @@map("email_templates")
+}
+
+enum EmailType {
+  TASK_CREATED
+  TASK_UPDATED
+  TASK_DELETED
+  SUMMARY_TASKS_DAILY
+}

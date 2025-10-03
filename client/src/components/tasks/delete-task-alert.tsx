@@ -11,7 +11,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { useTasksStore } from '@/hooks/use-tasks';
+import { useTaksActions } from '@/hooks/use-tasks';
 import { Task } from '@/types/task';
 import { toast } from 'sonner';
 
@@ -23,7 +23,7 @@ interface DeleteTaskAlertProps {
 
 export function DeleteTaskAlert({ task, open, onOpenChange }: DeleteTaskAlertProps) {
   const [isDeleting, setIsDeleting] = useState(false);
-  const deleteTask = useTasksStore((state) => state.deleteTask);
+  const { deleteTask } = useTaksActions();
 
   const handleDelete = async () => {
     if (!task) return;

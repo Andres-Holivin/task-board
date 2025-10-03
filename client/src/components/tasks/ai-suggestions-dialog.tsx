@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useTasksStore } from '@/hooks/use-tasks';
+import { useTaksActions } from '@/hooks/use-tasks';
 import { TaskSuggestion, TaskStatus } from '@/types/task';
 import { toast } from 'sonner';
 import { Sparkles, Check } from 'lucide-react';
@@ -30,8 +30,7 @@ export function AiSuggestionsDialog({ open, onOpenChange }: AiSuggestionsDialogP
   const [isGenerating, setIsGenerating] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   
-  const getSuggestions = useTasksStore((state) => state.getSuggestions);
-  const createTask = useTasksStore((state) => state.createTask);
+  const { getSuggestions, createTask } =useTaksActions();
 
   const handleGenerate = async () => {
     setIsGenerating(true);

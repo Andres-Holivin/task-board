@@ -16,6 +16,13 @@ const envSchema = z.object({
 
     // Gemini AI Configuration
     GEMINI_API_KEY: z.string().min(1, { message: "GEMINI_API_KEY is required" }),
+
+    // SMTP Configuration
+    SMTP_HOST: z.string().min(1, { message: "SMTP_HOST is required" }),
+    SMTP_PORT: z.string().regex(/^\d+$/, { message: "SMTP_PORT must be a number" }).transform(Number).default(587),
+    SMTP_USER: z.string().min(1, { message: "SMTP_USER is required" }),
+    SMTP_PASS: z.string().min(1, { message: "SMTP_PASS is required" }),
+    SMTP_SENDER_NAME: z.string().default("Task Board App"),
 });
 export type Env = z.infer<typeof envSchema>;
 export const validateEnv = async (): Promise<Env> => {
