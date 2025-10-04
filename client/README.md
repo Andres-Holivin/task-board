@@ -161,20 +161,6 @@ The application uses JWT-based authentication:
 3. Review AI-generated task suggestions
 4. Add desired suggestions to your task list
 
-## 🌐 API Integration
-
-The client communicates with the backend server through REST API endpoints:
-
-```
-POST   /api/auth/login          # User login
-POST   /api/auth/register       # User registration
-GET    /api/tasks              # Fetch all tasks
-POST   /api/tasks              # Create a new task
-GET    /api/tasks/:id          # Get single task
-PATCH  /api/tasks/:id          # Update a task
-DELETE /api/tasks/:id          # Delete a task
-GET    /api/tasks/suggestions  # Get AI task suggestions
-```
 
 ## 🎨 Theming
 
@@ -198,45 +184,6 @@ Or use Docker Compose:
 docker-compose up
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
-
-## � License
-
-This project is licensed under the MIT License.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Port already in use**:
-```bash
-# Kill process on port 3000 (Windows PowerShell)
-Get-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess | Stop-Process
-```
-
-**Build errors**:
-```bash
-# Clear Next.js cache
-Remove-Item -Recurse -Force .next
-yarn dev
-```
-
-**Dependencies issues**:
-```bash
-# Clean install
-Remove-Item -Recurse -Force node_modules, yarn.lock
-yarn install
-```
-
-## 📞 Support
-
-For issues and questions, please open an issue in the GitHub repository.
 
 ## � Related Documentation
 
@@ -362,17 +309,6 @@ yarn start
 - Check Network tab for API calls
 - View Zustand state with DevTools
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch
-3. Make changes
-4. Test thoroughly
-5. Submit pull request
-
-## 📝 License
-
-MIT License - see LICENSE file for details
 
 ## 🔗 Links
 

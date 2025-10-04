@@ -153,7 +153,7 @@ The server supports two authentication methods:
 
 Swagger documentation is available at:
 ```
-http://localhost:3001/api/docs
+http://localhost:3001/swagger
 ```
 
 The interactive API explorer allows you to:
@@ -215,7 +215,6 @@ GET /api/tasks/suggestions?context=Build a web application
 
 Automated email notifications for:
 - **Task Creation**: Welcome email with task details
-- **Task Updates**: Notification of changes
 - **Task Deletion**: Confirmation email
 - **Daily Summaries**: Overview of pending tasks
 
@@ -284,79 +283,7 @@ Required environment variables must be set in Vercel dashboard.
    ```bash
    npm run start:prod
    ```
-
-### Production Checklist
-- [ ] Set all environment variables
-- [ ] Run database migrations
-- [ ] Configure CORS for production domain
-- [ ] Enable rate limiting
-- [ ] Setup monitoring and logging
-- [ ] Configure backup strategy
-- [ ] Test all API endpoints
-
-## 🔍 Monitoring & Logging
-
-- **Request Logging**: All HTTP requests are logged
-- **Error Tracking**: Custom exception filters
-- **Database Logging**: Prisma query logging
-- **Health Checks**: `/api/health` endpoint
-- **Response Interceptors**: Standardized API responses
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Write tests for new features
-4. Ensure all tests pass (`npm test`)
-5. Commit your changes
-6. Submit a Pull Request
-
-## 📄 License
-
-This project is licensed under the UNLICENSED License.
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Database connection failed**:
-```bash
-# Check PostgreSQL is running
-# Verify DATABASE_URL in .env
-npx prisma db push
-```
-
-**Prisma client not found**:
-```bash
-npx prisma generate
-```
-
-**Port already in use** (Windows PowerShell):
-```powershell
-# Find and kill process on port 3001
-Get-Process -Id (Get-NetTCPConnection -LocalPort 3001).OwningProcess | Stop-Process
-```
-
-**Migration issues**:
-```bash
-# Reset database (development only!)
-npx prisma migrate reset
-
-# Or apply migrations
-npx prisma migrate dev
-```
-
-**Module not found errors**:
-```bash
-# Clean install
-Remove-Item -Recurse -Force node_modules, package-lock.json
-npm install
-```
-
-## 📞 Support
-
-For issues and questions, please open an issue in the GitHub repository.
-
+   
 ## 🔗 Related Documentation
 
 - [Main Project README](../README.md)
@@ -369,51 +296,11 @@ For issues and questions, please open an issue in the GitHub repository.
 
 **Built with ❤️ using NestJS and Prisma**
 
+
+# Tests
+```
 $ yarn run test
-
-# e2e tests
 $ yarn run test:e2e
-
-# test coverage
 $ yarn run test:cov
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
