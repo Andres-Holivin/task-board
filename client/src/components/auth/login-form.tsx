@@ -26,7 +26,7 @@ interface LoginFormProps {
   readonly onSuccess?: () => void;
 }
 
-export function LoginForm({ onSuccess }: LoginFormProps) {
+export function LoginForm() {
   const router = useRouter();
   const { login } = useAuthActions();
   const [showPassword, setShowPassword] = useState(false);
@@ -44,12 +44,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     try {
       setIsLoading(true);
       await login(data as LoginRequest);
-      
-      if (onSuccess) {
-        onSuccess();
-      } else {
-        router.push('/dashboard');
-      }
+
+      router.push('/dashboard');
     } catch (error) {
       // Error is handled by the store
       console.error('Login failed:', error);
@@ -138,8 +134,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
       <div className="text-center text-sm">
         <span className="text-muted-foreground">Don't have an account? </span>
-        <Link 
-          href="/auth/register" 
+        <Link
+          href="/auth/register"
           className="font-medium text-primary hover:underline"
         >
           Sign up

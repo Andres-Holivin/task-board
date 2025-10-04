@@ -9,12 +9,9 @@ const envSchema = z.object({
     SUPABASE_URL: z.string().url("SUPABASE_URL must be a valid URL"),
     SUPABASE_ANON_KEY: z.string().min(1, { message: "SUPABASE_ANON_KEY is required" }),
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1, { message: "SUPABASE_SERVICE_ROLE_KEY is required" }),
+    SUPABASE_JWT_SECRET: z.string().min(1, { message: "SUPABASE_JWT_SECRET is required" }),
 
     ALLOWED_ORIGINS: z.string().min(1, "ALLOWED_ORIGINS is required").transform((val) => val.split(',')),
-
-    // JWT Configuration
-    JWT_SECRET: z.string().min(32, { message: "JWT_SECRET must be at least 32 characters long" }),
-    JWT_EXPIRES_IN: z.string().default("7d"),
 
     // Gemini AI Configuration
     GEMINI_API_KEY: z.string().min(1, { message: "GEMINI_API_KEY is required" }),

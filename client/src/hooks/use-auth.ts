@@ -86,16 +86,10 @@ export const useAuthStore = create<AuthStore>()(
                     set({ isLoading: true, error: null });
 
                     const response = await authService.register(userData);
-
-                    set({
-                        user: response.data.user,
-                        accessToken: response.data.accessToken,
-                        refreshToken: response.data.refreshToken,
-                        isAuthenticated: true,
-                        isLoading: false,
-                        error: null,
-                    });
-                    toast.success('Registered successfully', { id: 'register' });
+                    if (!response.success) {
+                        throw new Error(response.message || 'Registration failed');
+                    }
+                    toast.success('Account created successfully! Please check your email to verify your account.', { id: 'register' });
                 } catch (error) {
                     const errorMessage = error instanceof Error
                         ? error.message

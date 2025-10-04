@@ -5,14 +5,6 @@ class AuthService {
     async register(data: RegisterRequest): Promise<ApiResponse<AuthResponse>> {
         try {
             const response = await apiClient.post<ApiResponse<AuthResponse>>('/auth/register', data);
-
-            // Store tokens
-            apiClient.setTokens(
-                response.data.accessToken,
-                response.data.refreshToken,
-                response.data.expiresIn
-            );
-
             return response;
         } catch (error) {
             console.error('Registration failed:', error);

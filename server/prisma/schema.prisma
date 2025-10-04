@@ -1,6 +1,9 @@
-
 generator client {
   provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
 }
 
 datasource db {
@@ -8,7 +11,6 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-        
 
 enum TaskStatus {
   TODO
@@ -50,6 +52,7 @@ model EmailLog {
   @@index([status])
   @@map("email_logs")
 }
+
 model EmailTemplate {
   id        String    @id @default(uuid())
   subject   String
@@ -59,6 +62,7 @@ model EmailTemplate {
   emailType EmailType
   createdBy String
   updatedBy String
+
   @@map("email_templates")
 }
 

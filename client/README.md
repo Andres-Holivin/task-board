@@ -1,159 +1,254 @@
-# Task Board - Frontend (Next.js)
+# Task Board - Client
 
-A modern task management application with Kanban board, built with Next.js 15, React 19, and shadcn/ui.
+A modern, responsive task management application built with Next.js 15, featuring real-time updates, drag-and-drop functionality, and AI-powered task suggestions.
 
-## ✨ Features
+## 🚀 Features
 
-- 🎨 **Kanban Board** - Drag-and-drop interface with @dnd-kit
-- 🔐 **Authentication** - JWT-based auth with Supabase
-- ✅ **Task Management** - Full CRUD operations
-- 🤖 **AI Suggestions** - Google Gemini integration
-- 🎭 **Theme Support** - Dark/light mode with next-themes
-- 📱 **Responsive Design** - Works on all devices
-- ⚡ **Type-Safe** - Full TypeScript support
-- 🔄 **State Management** - Zustand for reactive updates
+- **Authentication System**: Secure login and registration with JWT tokens
+- **Task Management**: Create, update, delete, and organize tasks
+- **Drag & Drop**: Intuitive task organization with @dnd-kit
+- **AI Suggestions**: Get intelligent task suggestions powered by AI
+- **Real-time Updates**: Instant synchronization across the application
+- **Dark/Light Theme**: Built-in theme switcher for user preference
+- **Responsive Design**: Fully responsive UI that works on all devices
+- **Form Validation**: Robust form validation with Zod and React Hook Form
 
-## 🚀 Quick Start
+## 🛠️ Tech Stack
 
-### Development (Local)
+- **Framework**: [Next.js 15](https://nextjs.org/) with Turbopack
+- **Language**: TypeScript
+- **UI Library**: React 19
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI primitives + shadcn/ui
+- **Forms**: React Hook Form + Zod validation
+- **State Management**: Zustand
+- **HTTP Client**: Axios
+- **Drag & Drop**: @dnd-kit
+- **Icons**: Lucide React
+- **Date Handling**: date-fns & Moment.js
 
+## � Prerequisites
+
+- Node.js 18+ 
+- Yarn package manager
+- Running backend server (see [server README](../server/README.md))
+
+## 🔧 Installation
+
+1. **Install dependencies**:
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the app.
-
-### Development (Docker)
-
-```bash
-# Start with hot reload
-docker-compose -f docker-compose.dev.yml up
-```
-
-### Production (Docker)
-
-```bash
-# Build and run
-docker-compose build
-docker-compose up -d
-```
-
-## 📦 Docker Deployment
-
-This project includes complete Docker support:
-
-- **Production:** Multi-stage optimized build (~200MB)
-- **Development:** Hot reload with volume mounting
-- **Health Checks:** Automatic monitoring and restart
-- **Documentation:** Complete guides included
-
-### Quick Deploy
-
-```bash
-# See DOCKER_README.md for complete guide
-docker-compose build
-docker-compose up -d
-```
-
-## 🏗️ Tech Stack
-
-- **Framework:** Next.js 15.5.4 (App Router)
-- **React:** 19.1.0
-- **UI Components:** shadcn/ui + Radix UI
-- **State Management:** Zustand 5.0.8
-- **HTTP Client:** Axios 1.12.2
-- **Drag & Drop:** @dnd-kit
-- **Styling:** Tailwind CSS 4
-- **Forms:** React Hook Form + Zod validation
-- **TypeScript:** Full type safety
-
-## 📁 Project Structure
-
-```
-src/
-├── app/                    # Next.js app router
-│   ├── auth/              # Authentication pages
-│   ├── dashboard/         # Main Kanban dashboard
-│   └── api/health/        # Health check endpoint
-├── components/            # React components
-│   ├── auth/             # Auth components
-│   ├── tasks/            # Task management
-│   ├── navbar/           # Navigation
-│   ├── providers/        # Context providers
-│   └── ui/               # shadcn/ui components
-├── hooks/                # Custom React hooks
-├── lib/                  # Utilities
-├── services/             # API services
-└── types/                # TypeScript types
-```
-
-## 🔧 Configuration
+2. **Configure environment variables**:
+Create a `.env.local` file in the client directory:
 
 ### Environment Variables
 
 ```env
 # Backend API URL
 NEXT_PUBLIC_API_URL=http://localhost:3001
+
+# API Request Timeout (in milliseconds, optional - defaults to 30000)
+NEXT_PUBLIC_API_TIMEOUT=30000
+
+# App Configuration (optional)
+PORT=3000
+NODE_ENV=development
 ```
 
-### Next.js Config
-
-```typescript
-// next.config.ts
-output: 'standalone'  // Required for Docker
+### API Request Timeout (in milliseconds)
+```env
+NEXT_PUBLIC_API_TIMEOUT=30000
 ```
 
-## 🐳 Docker Files
+### App Configuration
+```
+PORT=3000
+NODE_ENV=development
+```
 
-- `Dockerfile` - Production multi-stage build
-- `Dockerfile.dev` - Development with hot reload
-- `docker-compose.yml` - Standalone deployment
-- `docker-compose.dev.yml` - Development environment
-- `.dockerignore` - Build optimization
-
-## 📚 Documentation
-
-- **[DOCKER_README.md](./DOCKER_README.md)** - Docker deployment guide
-- **[DOCKER_SETUP_COMPLETE.md](./DOCKER_SETUP_COMPLETE.md)** - Quick reference
-- **[FRONTEND_README.md](./FRONTEND_README.md)** - Frontend architecture
-
-## 🧪 Available Scripts
-
+3. **Run the development server**:
 ```bash
-# Development
-npm run dev          # Start dev server with Turbopack
-
-# Production
-npm run build        # Build for production
-npm run start        # Start production server
-
-# Code Quality
-npm run lint         # Run ESLint
+yarn dev
 ```
 
-## 🎯 Key Components
+The application will be available at `http://localhost:3000`
 
-### Dashboard
-Main Kanban board with drag-and-drop functionality.
+## 📜 Available Scripts
 
-### Task Dialogs
-- `AddTaskDialog` - Create new tasks
-- `EditTaskDialog` - Update existing tasks
-- `DeleteTaskAlert` - Confirm deletion
-- `AISuggestionsDialog` - AI-powered suggestions
+| Command | Description |
+|---------|-------------|
+| `yarn dev` | Start development server with Turbopack |
+| `yarn build` | Build production application |
+| `yarn start` | Start production server |
+| `yarn lint` | Run ESLint for code quality |
+
+## 📁 Project Structure
+
+```
+client/
+├── src/
+│   ├── app/                    # Next.js app directory
+│   │   ├── api/               # API routes
+│   │   ├── auth/              # Authentication pages
+│   │   │   ├── login/         # Login page
+│   │   │   └── register/      # Registration page
+│   │   ├── dashboard/         # Dashboard page
+│   │   ├── layout.tsx         # Root layout
+│   │   └── page.tsx           # Home page
+│   ├── components/            # React components
+│   │   ├── auth/              # Authentication components
+│   │   ├── navbar/            # Navigation components
+│   │   ├── providers/         # Context providers
+│   │   ├── tasks/             # Task-related components
+│   │   └── ui/                # Reusable UI components
+│   ├── hooks/                 # Custom React hooks
+│   ├── lib/                   # Utility functions
+│   ├── services/              # API service layer
+│   └── types/                 # TypeScript type definitions
+├── public/                    # Static assets
+└── package.json              # Dependencies and scripts
+```
+
+## 🎨 Key Components
 
 ### Authentication
-- `LoginForm` - User login
-- `RegisterForm` - User registration
-- `ProtectedRoute` - Route protection
+- `LoginForm`: User login with email/password
+- `RegisterForm`: New user registration
+- `AuthProvider`: Authentication context provider
 
-## 🔄 API Integration
+### Task Management
+- `AddTaskDialog`: Create new tasks
+- `EditTaskDialog`: Edit existing tasks
+- `ViewTaskDialog`: View task details
+- `DeleteTaskAlert`: Confirm task deletion
+- `AiSuggestionsDialog`: Get AI-powered task suggestions
 
-All API calls go through `src/services/`:
+### Navigation
+- `Navbar`: Main navigation bar
+- `NavMenu`: Navigation menu items
+- `Logo`: Application logo component
+
+## 🔐 Authentication Flow
+
+[![](https://mermaid.ink/img/pako:eNptkU1PAjEQhv_KZE4aUXQFWXvwwGpMvGhcVhOyl7odoIFt19nWiIT_bgsoJthTZ56-73x0hZVVhAJbevdkKrrVcsqyLg2E00h2utKNNA4KkC0ULfEhyiLKFpqMO4R5hDnxx3_KfLihvpFvsqXSbF8Upzc3mYA744ihYlLBWMtFu6XZlr7IhVbSEUws13A0tup4z3MBT4_5CLqy0V3p3ay7sFO9s8_jg2FwINaT5WGBfLh1iMNCFEdahVLqj17APRni2MDD62gPQmfP5DwbcHZOBk7A_-5s13nuLBNoA5W1c017VkSt0kyVC2pQsp29WckKOzhlrVA49tTBmriWMcRV1JYYOqypRBGuSvK8xNKsgyZseGxt_SNj66czFJMwZ4h8E5e3--3fLJNRxJn1xqFI-hsPFCv8RHHZvzi76l-lyUV6mSTJedrBJYpeepYOeteDXswngzRdd_BrU_Q8gP76G-hbv2w?type=png)](https://mermaid.live/edit#pako:eNptkU1PAjEQhv_KZE4aUXQFWXvwwGpMvGhcVhOyl7odoIFt19nWiIT_bgsoJthTZ56-73x0hZVVhAJbevdkKrrVcsqyLg2E00h2utKNNA4KkC0ULfEhyiLKFpqMO4R5hDnxx3_KfLihvpFvsqXSbF8Upzc3mYA744ihYlLBWMtFu6XZlr7IhVbSEUws13A0tup4z3MBT4_5CLqy0V3p3ay7sFO9s8_jg2FwINaT5WGBfLh1iMNCFEdahVLqj17APRni2MDD62gPQmfP5DwbcHZOBk7A_-5s13nuLBNoA5W1c017VkSt0kyVC2pQsp29WckKOzhlrVA49tTBmriWMcRV1JYYOqypRBGuSvK8xNKsgyZseGxt_SNj66czFJMwZ4h8E5e3--3fLJNRxJn1xqFI-hsPFCv8RHHZvzi76l-lyUV6mSTJedrBJYpeepYOeteDXswngzRdd_BrU_Q8gP76G-hbv2w)
+
+The application uses JWT-based authentication:
+
+1. User registers or logs in
+2. Server returns JWT token
+3. Token is stored in cookies
+4. Token is included in subsequent API requests
+5. Protected routes redirect to login if unauthenticated
+
+## 🎯 Usage
+
+### Creating a Task
+1. Navigate to the dashboard
+2. Click "Add Task" button
+3. Fill in task details (title, description, status)
+4. Submit the form
+
+### Managing Tasks
+- **Edit**: Click on a task to view and edit details
+- **Delete**: Click the delete icon and confirm
+- **Change Status**: Drag and drop tasks between columns (TODO, IN_PROGRESS, DONE)
+
+### AI Suggestions
+1. Click "Get AI Suggestions" button
+2. Optionally provide context
+3. Review AI-generated task suggestions
+4. Add desired suggestions to your task list
+
+## 🌐 API Integration
+
+The client communicates with the backend server through REST API endpoints:
+
+```
+POST   /api/auth/login          # User login
+POST   /api/auth/register       # User registration
+GET    /api/tasks              # Fetch all tasks
+POST   /api/tasks              # Create a new task
+GET    /api/tasks/:id          # Get single task
+PATCH  /api/tasks/:id          # Update a task
+DELETE /api/tasks/:id          # Delete a task
+GET    /api/tasks/suggestions  # Get AI task suggestions
+```
+
+## 🎨 Theming
+
+The application supports dark and light themes using `next-themes`. Users can toggle between themes using the theme switcher in the navigation bar.
+
+## 🐳 Docker Support
+
+Build and run using Docker:
+
+```bash
+# Build the image
+docker build -t task-board-client .
+
+# Run the container
+docker run -p 3000:3000 task-board-client
+```
+
+Or use Docker Compose:
+
+```bash
+docker-compose up
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+## � License
+
+This project is licensed under the MIT License.
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Port already in use**:
+```bash
+# Kill process on port 3000 (Windows PowerShell)
+Get-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess | Stop-Process
+```
+
+**Build errors**:
+```bash
+# Clear Next.js cache
+Remove-Item -Recurse -Force .next
+yarn dev
+```
+
+**Dependencies issues**:
+```bash
+# Clean install
+Remove-Item -Recurse -Force node_modules, yarn.lock
+yarn install
+```
+
+## 📞 Support
+
+For issues and questions, please open an issue in the GitHub repository.
+
+## � Related Documentation
+
+- [Main Project README](../README.md)
+- [Server README](../server/README.md)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Radix UI](https://www.radix-ui.com/)
+
+---
+
+**Built with ❤️ using Next.js 15 and React 19**
+
 
 - `auth.ts` - Authentication endpoints
 - `tasks.ts` - Task CRUD operations
@@ -247,8 +342,8 @@ vercel
 ### Manual
 
 ```bash
-npm run build
-npm run start
+yarn build
+yarn start
 ```
 
 ## 📈 Performance

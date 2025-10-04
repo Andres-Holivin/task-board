@@ -25,7 +25,6 @@ export const Navbar = ({ children }: { children: React.ReactNode }) => {
 
             <div className="flex items-center gap-3">
               <ModeToggle />
-              { }
               <div className="hidden md:flex items-center gap-3">
                 <UserAvatar />
               </div>

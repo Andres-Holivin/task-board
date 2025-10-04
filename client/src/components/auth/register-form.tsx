@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 
 import { useAuthActions } from '@/hooks/use-auth';
 import { RegisterRequest } from '@/types/auth';
+import { toast } from 'sonner';
 
 const registerSchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters'),
@@ -30,11 +31,7 @@ const registerSchema = z.object({
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
-interface RegisterFormProps {
-  readonly onSuccess?: () => void;
-}
-
-export function RegisterForm({ onSuccess }: RegisterFormProps) {
+export function RegisterForm() {
   const router = useRouter();
   const { register } = useAuthActions();
   const [showPassword, setShowPassword] = useState(false);
@@ -62,12 +59,9 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
       };
       
       await register(registerData);
-      
-      if (onSuccess) {
-        onSuccess();
-      } else {
-        router.push('/dashboard');
-      }
+      console.log('Registration successful');
+      router.push('/auth/login');
+
     } catch (error) {
       // Error is handled by the store
       console.error('Registration failed:', error);

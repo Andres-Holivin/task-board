@@ -17,9 +17,9 @@ import { SupabaseService } from '../../config/supabase.service';
         PassportModule.register({ defaultStrategy: 'jwt' }),
         JwtModule.registerAsync({
             useFactory: (configService: ConfigService<Env, true>) => ({
-                secret: configService.get('JWT_SECRET', { infer: true }),
+                secret: configService.get('SUPABASE_JWT_SECRET', { infer: true }),
                 signOptions: {
-                    expiresIn: configService.get('JWT_EXPIRES_IN', { infer: true }),
+                    expiresIn: '1h', // This is just for compatibility, Supabase handles token expiry
                 },
             }),
             inject: [ConfigService],
