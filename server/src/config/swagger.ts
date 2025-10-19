@@ -2,6 +2,8 @@ import { INestApplication } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Env } from "./env";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import * as express from 'express';
+
 
 export function swaggerConfig(app: INestApplication) {
     const configService = app.get(ConfigService<Env, true>);
