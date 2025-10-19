@@ -35,7 +35,7 @@ export function swaggerConfig(app: INestApplication) {
     const document = SwaggerModule.createDocument(app, config);
 
     // ✅ Tell Swagger UI to use the new static prefix (/swagger-ui/)
-    SwaggerModule.setup("swagger", app, document, {
+    SwaggerModule.setup("/api/swagger", app, document, {
       customSiteTitle: "Task Board API Docs",
       customCss: ".swagger-ui .topbar { display: none }",
       customfavIcon:
