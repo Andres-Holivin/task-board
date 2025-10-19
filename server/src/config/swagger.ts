@@ -8,7 +8,7 @@ import * as express from 'express';
 export function swaggerConfig(app: INestApplication) {
     const configService = app.get(ConfigService<Env, true>);
       const swaggerAssets = require('swagger-ui-dist').absolutePath();
-      app.use('/swagger', express.static(swaggerAssets));
+  app.use('/swagger/', express.static(swaggerAssets));
     const nodeEnv = configService.get('NODE_ENV', { infer: true });
     const port = configService.get('PORT', { infer: true });
 
