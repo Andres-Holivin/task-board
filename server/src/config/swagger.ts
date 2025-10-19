@@ -36,6 +36,7 @@ export function swaggerConfig(app: INestApplication) {
         SwaggerModule.setup('swagger', app, document, {
             customSiteTitle: 'Task Board API Documentation',
             customCss: '.swagger-ui .topbar { display: none }',
+            customfavIcon: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Swagger-logo.png'
         });
 
         console.log(`📚 Swagger documentation available at http://localhost:${port}/swagger`);
