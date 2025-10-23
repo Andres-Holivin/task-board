@@ -21,7 +21,7 @@ export class TasksService {
             },
         });
 
-        const taskResult = task as Task;
+        const taskResult = task;
 
         // Kirim email notifikasi secara asynchronous (tidak block)
         await this.sendTaskCreatedEmail(user, taskResult);
