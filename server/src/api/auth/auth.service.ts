@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, ConflictException, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ConflictException,BadRequestException, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import type { LoginDto, RegisterDto } from './dto/auth.dto';
 import type { AuthResponse, User, SupabaseUser } from './interfaces/auth.interface';
@@ -33,7 +33,7 @@ export class AuthService {
                 if (error.message.includes('already registered')) {
                     throw new ConflictException('User already exists');
                 }
-                throw new UnauthorizedException(error.message);
+                throw new BadRequestException(error.message);
             }
 
             if (!data.user || !data.session) {
@@ -51,7 +51,7 @@ export class AuthService {
                 expiresIn: data.session.expires_in || 3600,
             };
         } catch (error) {
-            if (error instanceof ConflictException || error instanceof UnauthorizedException) {
+            if (error instanceof ConflictException || error instanceof BadRequestException) {
                 throw error;
             }
             throw new InternalServerErrorException('Registration failed');
@@ -71,7 +71,7 @@ export class AuthService {
             });
             console.log("Login", data, error);
             if (error || !data.user || !data.session) {
-                throw new UnauthorizedException(error?.message || 'Invalid credentials');
+                throw new BadRequestException(error?.message || 'Invalid credentials');
             }
 
             // Map Supabase user to our User interface
@@ -85,7 +85,7 @@ export class AuthService {
                 expiresIn: data.session.expires_in || 3600,
             };
         } catch (error) {
-            if (error instanceof UnauthorizedException) {
+            if (error instanceof BadRequestException) {
                 throw error;
             }
             throw new InternalServerErrorException('Login failed');
