@@ -4,6 +4,10 @@ A full-stack task management application with Kanban board functionality, AI-pow
 
 ## 🎯 Overview
 
+
+
+
+
 Task Board is a modern, production-ready task management system that helps users organize their work efficiently. It features a clean Kanban-style interface, drag-and-drop functionality, intelligent AI suggestions, and a robust backend API.
 
 ## ✨ Key Features
